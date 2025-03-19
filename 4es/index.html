@@ -1,0 +1,60 @@
+<!-- Implementare il codice necessario per:
+
+-Recuperare il valore di ciascun campo di input e creare un oggetto person 
+contenente le proprietà: firstName, lastName e age.
+-Infine recuperare l'elemento form aggiungere l'attributo data-person 
+contenente l'oggetto person in formato json -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container">
+        <form>
+            <div>
+                <label>First Name:</label>
+                <input type="text" class="form-input" id="firstName" value="Mario" />
+            </div>
+            <div>
+                <label>Last Name:</label>
+                <input type="text" class="form-input" id="lastName" value="Rossi" />
+            </div>
+            <div>
+                <label>Age:</label>
+                <input type="number" class="form-input" id="age" value="25" />
+            </div>
+            <br>
+            <div>
+                <button type="submit">Isctiviti!</button>                   <!--Creazione del bottone  -->
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.querySelector("form");                         // Otteniamo il FORM
+        form.addEventListener("submit", (event) => {                         // Ascoltiamo l'evento "submit"
+            event.preventDefault();                                          // Previene il Deafult
+            const name = document.getElementById("firstName").value;         // Otteniamo il valore del name
+            const surname = document.getElementById("lastName").value;       // Otteniamo il valore del surname
+            const age = document.getElementById("age").value;                // Otteniamo il valore dell' age
+
+            const person = {                                                 // Raggruppiamo tutti i valori trovati dentro l'obj person
+                name: name,
+                surname: surname,                                            
+                age: age
+            }
+
+            form.setAttribute("data-person", JSON.stringify(person));      // Un attributo che inizia con data- è considerato  un "attributo
+            console.log(person);                                           // personalizzato" e stringify converte in una stringa Json
+        })
+
+    </script>
+</body>
+
+</html>
