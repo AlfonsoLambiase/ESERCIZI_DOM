@@ -1,0 +1,60 @@
+<!-- Lo scopo di questo task è di mostrare nella pagina una carta de "Il signore degli anelli" con:
+
+Nome del personaggio
+immagine del personaggio
+Prova a fetchare una card dal db del gioco di carte di Lord of the Rings, 
+la documentazione dell'API la puoi trovare a questo link: https://ringsdb.com/api/doc
+Fai in modo che nella tua pagina html spuntino il nome del personaggio della carta, la sua immagine -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+</head>
+
+<body>
+    <h1></h1>
+    <img src="" alt="">
+
+
+    <script>
+    
+        const h1 = document.querySelector("h1");
+        const img = document.querySelector("img");
+
+        async function recuperaDati() {
+            try {
+                const dati = await fetch("https://ringsdb.com/api/public/cards/"); //Aspetta l'arrivo dell'API  
+                const datiVeri = await dati.json(); //Converte l'API in formato Json per renderlo leggibile
+                console.log(datiVeri); //Stampa i dati ricevuti dalla fetch
+                h1.textContent = datiVeri[0].name;  //Aggiunge il contenuto di h1 e img dopo aver ricevuto i dati  selezionando sia la posizione dell'Array che l'elemento al suo interno
+                img.src = `https://ringsdb.com${datiVeri[0].imagesrc}`; //Nel caso delle immagini oltre al .src serve indicare il dominio prima 
+            }
+            catch (errore) { console.error(errore) }
+        }
+
+        recuperaDati();
+
+
+
+
+
+//       ALTERNATIVA SENZA TRY
+/*
+const h1 = document.querySelector("h1");
+const img = document.querySelector("img");
+fetch("https://ringsdb.com/api/public/cards/")
+.then((response) => {return response.json()})
+.then((data) => { console.log(data);
+h1.textContent = data[0].name;
+img.src = `https://ringsdb.com${data[0].imagesrc}`;
+})
+.catch((error)=>{console.error(error)})
+*/     
+    </script>
+
+</body>
+
+</html>
